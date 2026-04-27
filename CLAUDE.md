@@ -24,6 +24,8 @@ MVP em andamento — quadro de progresso em [`docs/iniciativa_mvp.md`](docs/inic
 
 Projeto de análise do mercado automotivo brasileiro. Pipeline local de coleta e consolidação de dados públicos, entregue como Jupyter notebook + módulo Python (`src/`).
 
+- `src/geo.py` — lookup canônico UF → Grande Região IBGE (dicionário `UF_PARA_REGIAO` + funções `uf_to_regiao` e `adicionar_regiao`). É a única fonte de verdade para agregações geográficas; não replicar a tabela em outro lugar.
+
 ## Ambiente
 
 - Python 3.10+ via venv local em `.venv_AUTOMOVEL_BR/` (Windows; ativar com `.venv_AUTOMOVEL_BR\Scripts\activate`).

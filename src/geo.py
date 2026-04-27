@@ -1,7 +1,7 @@
-"""Lookup IBGE: sigla de UF -> nome da Grande Regiao brasileira.
+"""Lookup IBGE: sigla de UF -> nome da Grande Região brasileira.
 
-Fornece o dicionario `UF_PARA_REGIAO` (27 entradas) e as funcoes `uf_to_regiao`
-e `adicionar_regiao`, usadas nas etapas de agregacao geografica do MVP.
+Fornece o dicionário `UF_PARA_REGIAO` (27 entradas) e as funções `uf_to_regiao`
+e `adicionar_regiao`, usadas nas etapas de agregação geográfica do MVP.
 """
 
 from __future__ import annotations
@@ -25,11 +25,11 @@ UF_PARA_REGIAO: dict[str, str] = {
 
 
 def uf_to_regiao(uf: str) -> str:
-    """Retorna a Grande Regiao IBGE para a sigla de UF informada.
+    """Retorna a Grande Região IBGE para a sigla de UF informada.
 
     Normaliza o input com strip() e upper() antes da consulta. Levanta
-    TypeError se o argumento nao for string e ValueError se a sigla nao
-    estiver na tabela (a mensagem inclui o valor invalido recebido).
+    TypeError se o argumento não for string e ValueError se a sigla não
+    estiver na tabela (a mensagem inclui o valor inválido recebido).
     """
     if not isinstance(uf, str):
         raise TypeError(
@@ -47,8 +47,8 @@ def uf_to_regiao(uf: str) -> str:
 def adicionar_regiao(df: pd.DataFrame, col_uf: str = "uf") -> pd.DataFrame:
     """Retorna novo DataFrame com coluna 'regiao_ibge' derivada de col_uf.
 
-    Aplica uf_to_regiao linha a linha preservando a ordem e o indice originais.
-    O DataFrame de entrada nao e modificado.
+    Aplica uf_to_regiao linha a linha preservando a ordem e o índice originais.
+    O DataFrame de entrada não é modificado.
     """
     # .apply garante que erros de uf_to_regiao (TypeError/ValueError) se
     # propaguem explicitamente, ao contrario de .map que silenciaria com NaN.
