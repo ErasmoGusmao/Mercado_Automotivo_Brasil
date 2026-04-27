@@ -21,6 +21,9 @@ FONTE/**/*.parquet
 FONTE/**/*.xlsx
 FONTE/**/*.xls
 
+# Claude Code (settings locais por usuario, nao versionar)
+.claude/settings.local.json
+
 # OS / IDE
 Thumbs.db
 .DS_Store
