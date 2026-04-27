@@ -16,15 +16,20 @@ Este repositório opera sob o protocolo TDD + revisão dupla descrito em [`docs/
 
 Subagentes ativos: `backend-dev`, `code-reviewer`, `doc-writer`, `test-writer`, `analista-dados` (em `.claude/agents/`).
 
+## Iniciativa ativa
+
+MVP em andamento — quadro de progresso em [`docs/iniciativa_mvp.md`](docs/iniciativa_mvp.md). Sempre consulte este arquivo ao retomar sessão para saber em que PR estamos e qual é a próxima ação.
+
 ## Visão geral
 
-Projeto de análise do mercado automotivo brasileiro. Não é uma aplicação — é um pipeline de coleta e consolidação de dados públicos executado em notebooks Jupyter. Não há git, testes, lint, build ou CI configurados.
+Projeto de análise do mercado automotivo brasileiro. Pipeline local de coleta e consolidação de dados públicos, entregue como Jupyter notebook + módulo Python (`src/`).
 
 ## Ambiente
 
-- Python via venv local em `.venv_AUTOMOVEL_BR/` (Windows; ativar com `.venv_AUTOMOVEL_BR\Scripts\activate`).
-- Dependências instaladas ad-hoc dentro dos notebooks. Pacotes usados: `basedosdados`, `pandas`, `requests`, `openpyxl`, `tqdm`. Não existe `requirements.txt` — ao adicionar libs, instalar no venv ativo e mencionar para o usuário.
+- Python 3.10+ via venv local em `.venv_AUTOMOVEL_BR/` (Windows; ativar com `.venv_AUTOMOVEL_BR\Scripts\activate`).
+- Dependências em `requirements.txt` (instalar com `.venv_AUTOMOVEL_BR/Scripts/pip.exe install -r requirements.txt`). Metadados do pacote em `pyproject.toml`.
 - Acesso ao BigQuery via `basedosdados` requer credencial GCP autenticada e o billing project `pequisa-automovel-bd` (definido em `BILLING_ID` no notebook). O nome contém um typo histórico ("pequisa" em vez de "pesquisa") — não "corrigir" sem confirmar com o usuário.
+- Testes: `pytest` (config em `pyproject.toml`, testes em `tests/`). Rodar: `.venv_AUTOMOVEL_BR/Scripts/python.exe -m pytest`.
 
 ## Notebooks
 
