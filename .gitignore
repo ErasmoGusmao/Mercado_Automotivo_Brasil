@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv_AUTOMOVEL_BR/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+.virtual_documents/
+
+# Anaconda Projects metadata
+anaconda_projects/db/
+
+# Dados coletados (cache local, nao versionar)
+FONTE/**/*.csv
+FONTE/**/*.parquet
+FONTE/**/*.xlsx
+FONTE/**/*.xls
+
+# OS / IDE
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
