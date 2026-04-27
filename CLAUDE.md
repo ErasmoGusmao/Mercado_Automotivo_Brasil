@@ -2,6 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Protocolo de Orquestração (LEIA ANTES DE QUALQUER AÇÃO)
+
+Este repositório opera sob o protocolo TDD + revisão dupla descrito em [`docs/protocolo_orquestracao.md`](docs/protocolo_orquestracao.md). Regras-chave:
+
+1. **Triagem obrigatória** — toda tarefa começa classificada em CONSULTA / DOCS / EDIÇÃO PEQUENA / EDIÇÃO GRANDE / REFATORAÇÃO. O hook `UserPromptSubmit` injeta o gate em todo turno.
+2. **Nunca editar em `main`** — o hook `PreToolUse` bloqueia `Write|Edit|NotebookEdit` quando a branch corrente é `main`. Crie branch antes (Fase 2).
+3. **TDD real** — teste-red commitado **antes** da implementação (`tests/test_*.py` com pytest, schema `pandera` em `src/schemas.py`).
+4. **Revisão dupla** — `code-reviewer` interno até 100% limpo, depois `/revisao-codex` para os pontos sensíveis.
+5. **Worktree** em EDIÇÃO GRANDE / REFATORAÇÃO; até 3 times paralelos.
+6. **Documentação obrigatória** após qualquer mudança de código.
+7. **Higiene de Git** — branches só são deletadas com confirmação humana e após verificar `git log <branch> --not main` vazio.
+
+Subagentes ativos: `backend-dev`, `code-reviewer`, `doc-writer`, `test-writer`, `analista-dados` (em `.claude/agents/`).
+
 ## Visão geral
 
 Projeto de análise do mercado automotivo brasileiro. Não é uma aplicação — é um pipeline de coleta e consolidação de dados públicos executado em notebooks Jupyter. Não há git, testes, lint, build ou CI configurados.
