@@ -62,9 +62,9 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Estado atual
 
-- **Último PR mergeado:** #1 (`chore/instala-protocolo-orquestracao`).
-- **PR em andamento:** #2 (`chore/setup-projeto-python`) — este.
-- **Próxima ação:** abrir PR #3 (`feat/lookup-uf-regiao`).
+- **Último PR mergeado:** #2 (`chore/setup-projeto-python`).
+- **PR em andamento:** #3 (`feat/lookup-uf-regiao`) — lookup IBGE UF→Região + `src/geo.py` + 47 testes.
+- **Próxima ação:** revisar e mergear PR #3; em seguida abrir PR #4 (`feat/marcas-chinesas`).
 
 ## Open questions ativas
 
