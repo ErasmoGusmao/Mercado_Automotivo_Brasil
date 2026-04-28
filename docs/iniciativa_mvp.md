@@ -62,9 +62,9 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Estado atual
 
-- **Último PR mergeado:** #3 (`feat/lookup-uf-regiao`).
-- **PR em andamento:** #4 (`feat/marcas-chinesas`) — classificador de marcas chinesas + `src/marcas.py` + 72 testes + invariantes de cardinalidade/grupos.
-- **Próxima ação:** revisar e mergear PR #4; em seguida abrir PR #5 (`feat/ingestao-emplacamentos`).
+- **Último PR mergeado:** #4 (`feat/marcas-chinesas`).
+- **PR em andamento:** nenhum.
+- **Próxima ação:** abrir PR #5 (`feat/ingestao-emplacamentos`). Pré-requisito: resolver Q-A (escolha da fonte aberta para emplacamento por marca × modelo × UF × combustível) — investigar Base dos Dados (`br_senatran_*`/correlatos) antes de cair em scraping.
 
 ## Open questions ativas
 
