@@ -28,6 +28,7 @@ Projeto de análise do mercado automotivo brasileiro. Pipeline local de coleta e
 
 - `src/geo.py` — lookup canônico UF → Grande Região IBGE (dicionário `UF_PARA_REGIAO` + funções `uf_to_regiao` e `adicionar_regiao`). É a única fonte de verdade para agregações geográficas; não replicar a tabela em outro lugar.
 - `src/marcas.py` — classificador de marcas chinesas (`MARCAS_CHINESAS`, `e_marca_chinesa`, `adicionar_chinesa`, `grupo_chines`); 15 marcas canônicas + 4 aliases; Volvo/Polestar excluídas por decisão de produto (marca comercial registrada, não controle societário); SAIC figura apenas como valor controlador em `GRUPOS_CHINESES`.
+- `src/anfavea.py` — fetcher dos XLSX anuais da ANFAVEA (`siteautoveiculos{ANO}.xlsx`). Expõe `URL_TEMPLATE`, `ANOS_COBERTURA` (range fixo 2016-2026), dataclass `Resultado`, e funções `url_anfavea`, `baixar_anfavea`, `baixar_todos`. Não levanta exceções — qualquer erro de rede/HTTP vira `Resultado(ok=False)` para que o caller decida o que fazer. Cache load-uma-vez via `FONTE/ANFAVEA/raw/{mes_coleta}/`. Apenas fetcher: o parser das abas III/IV é responsabilidade do PR #5 (`feat/ingestao-anfavea`).
 
 ## Ambiente
 
