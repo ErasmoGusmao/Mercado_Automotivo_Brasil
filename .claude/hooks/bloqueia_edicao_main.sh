@@ -2,9 +2,18 @@
 # PreToolUse hook — bloqueia Write|Edit|NotebookEdit quando branch corrente é main.
 # Força a criação de branch (Fase 2 do protocolo) antes de qualquer escrita.
 # Documentado em docs/protocolo_orquestracao.md (§12).
+#
+# Resolução do repo (corrigido em 2026-04-28): usa `git rev-parse --show-toplevel`
+# a partir do CWD para respeitar worktrees. CLAUDE_PROJECT_DIR aponta para o
+# diretório raiz do projeto principal mesmo quando a sessão está em uma worktree
+# (.claude/worktrees/...), o que fazia o hook ler a branch errada e bloquear
+# escritas mesmo quando a worktree estava em uma branch válida (não-main).
 set -euo pipefail
 
-REPO_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
+REPO_DIR="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -z "$REPO_DIR" ]; then
+  REPO_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
+fi
 
 # Se o diretório não é repo git, não bloqueia (deixa passar).
 if ! git -C "$REPO_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then

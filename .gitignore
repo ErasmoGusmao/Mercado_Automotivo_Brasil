@@ -29,6 +29,8 @@ FONTE/**/*.xls
 
 # Claude Code (settings locais por usuario, nao versionar)
 .claude/settings.local.json
+# Worktrees criadas pela sessao do Claude Code para EDICAO GRANDE / REFATORACAO
+.claude/worktrees/
 
 # OS / IDE
 Thumbs.db
