@@ -8,7 +8,7 @@ Use esta skill no **início de uma nova sessão** ou quando o usuário disser "c
 
 ## Passos obrigatórios (executar nesta ordem)
 
-1. **Ler `docs/iniciativa_mvp.md`** — em particular as seções "Estado atual", "Plano dos 5 dias (PR a PR)", "Open questions ativas" e "Bloqueios conhecidos". `MEMORY.md` já é auto-carregado; só re-leia se as seções de project memory pedirem ponteiros adicionais.
+1. **Ler `docs/iniciativa_mvp.md`** — em particular as seções "Estado atual", "Plano dos 5 dias (PR a PR)", "Open questions ativas" e "Bloqueios conhecidos". `MEMORY.md` é carregado automaticamente pelo runtime do Claude Code (não precisa `Read` manual); só re-leia se as seções de project memory pedirem ponteiros adicionais.
 2. **Rodar em paralelo:**
    - `gh pr list --state open` — PRs ainda abertos.
    - `git log --oneline -10` — últimos commits em `main` (ou na branch corrente).
@@ -27,6 +27,7 @@ Use esta skill no **início de uma nova sessão** ou quando o usuário disser "c
 ## Não fazer
 
 - **Não criar branch, não rodar testes, não invocar subagentes** antes da confirmação humana. Esta skill é puramente de leitura + alinhamento.
+- **Não rodar comandos git/gh que mudem estado** — proibido `git commit`, `git push`, `git rebase`, `git checkout -b`, `gh pr merge`, `gh pr create`, `gh pr close`. Use apenas leitura: `git log`, `git status`, `git branch --show-current`, `gh pr list`, `gh pr view`. Embora `allowed-tools` inclua `Bash` sem filtro de subcomando, esta skill é read-only por contrato.
 - **Não corrigir o quadro silenciosamente** — sempre reporte o drift ao usuário e proponha um PR explícito de ressincronização (DOCS).
 - **Não confiar na memória sozinha** quando ela cita PR/arquivo/flag específico — verifique no `git log` ou `gh pr view`. A memória é frozen-in-time; o git é a verdade do momento.
 
@@ -54,4 +55,4 @@ gh pr view <numero> --json state,mergedAt
 
 ## Exemplo de saída esperada (sem drift)
 
-> Última sessão paramos em PR #6 (`docs/reescopa-mvp-anfavea-primeiro`); próxima ação seria abrir PR #11 (`feat/anfavea-redescoberta`), antecipado para o Dia 2 como pré-requisito do PR #5. Confirma?
+> Última sessão paramos em PR #4 (`feat/marcas-chinesas`); próxima ação seria abrir PR #5 (`feat/ingestao-anfavea`), conforme Dia 2 do plano. Confirma?

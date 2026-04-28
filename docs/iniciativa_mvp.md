@@ -77,7 +77,4 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Como retomar trabalho em nova sessão (Claude)
 
-1. Lê `MEMORY.md` (auto).
-2. Lê este arquivo.
-3. `gh pr list --state open` + `git log --oneline -10` para validar.
-4. Confirma com o usuário em uma frase: *"Última sessão paramos em PR #X; próxima ação seria Y. Confirma?"*
+Use o slash command [`/retomar-sessao`](../.claude/commands/retomar-sessao.md). Ele consolida a leitura deste quadro + `gh pr list` + `git log -10`, detecta drift entre quadro e remote, e devolve a próxima ação numa frase para confirmação humana antes de qualquer outra ação. Detalhes operacionais (passos, "Não fazer", exemplos) ficam na própria skill — esta seção é só ponteiro para evitar duplicação de fonte de verdade.
