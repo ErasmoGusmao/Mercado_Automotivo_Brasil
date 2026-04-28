@@ -1,6 +1,6 @@
 """Classificador de marcas chinesas para o pipeline de emplacamentos DENATRAN/SENATRAN.
 
-Fornece o conjunto canônico `MARCAS_CHINESAS` (16 entradas), o dicionário
+Fornece o conjunto canônico `MARCAS_CHINESAS` (15 entradas), o dicionário
 `GRUPOS_CHINESES` (marca -> grupo controlador), o dicionário `ALIASES_MARCAS`
 (variações de grafia -> forma canônica) e as funções `normalizar_marca`,
 `e_marca_chinesa`, `grupo_chines` e `adicionar_chinesa`, usadas nas etapas
@@ -9,7 +9,8 @@ de comparação chinesas vs. demais no DataFrame de emplacamentos do MVP.
 Nota de escopo: Volvo e Polestar são classificadas como não-chinesas, pois o
 classificador reflete a marca comercial registrada no DENATRAN/SENATRAN, não
 a cadeia de controle societário. Rever se a base passar a registrá-las como
-subsidiárias Geely.
+subsidiárias Geely. Os grupos controladores SAIC e Geely figuram apenas como
+valores em `GRUPOS_CHINESES` — não vendem sob esse nome no Brasil.
 """
 
 from __future__ import annotations
@@ -28,10 +29,7 @@ _GRUPOS: list[tuple[str, list[str]]] = [
     ("FOTON",    ["FOTON"]),
     ("CHANGAN",  ["CHANGAN"]),
     ("DONGFENG", ["DONGFENG", "DFSK"]),
-    # SAIC não aparece como marca própria no DENATRAN, mas é grupo controlador
-    # de MAXUS e MG — incluída em MARCAS_CHINESAS para manter a invariante
-    # MARCAS_CHINESAS == set(GRUPOS_CHINESES.keys()).
-    ("SAIC",     ["MAXUS", "MG", "SAIC"]),
+    ("SAIC",     ["MAXUS", "MG"]),
 ]
 
 MARCAS_CHINESAS: frozenset[str] = frozenset(

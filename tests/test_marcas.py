@@ -10,7 +10,7 @@ Decisoes de contrato documentadas:
   a base de dados passar a registrar Volvo/Polestar como subsidiarias Geely.
 - normalizar_marca aplica strip().upper() antes de consultar ALIASES_MARCAS.
 - adicionar_chinesa retorna novo DataFrame e nao muta o original.
-- MARCAS_CHINESAS deve ter exatamente 16 entradas (lista canonica aprovada).
+- MARCAS_CHINESAS deve ter exatamente 15 entradas (lista canonica aprovada).
 - Todo alias em ALIASES_MARCAS deve apontar para uma marca presente em MARCAS_CHINESAS.
 """
 
@@ -41,10 +41,9 @@ MARCAS_CANONICAS_CHINESAS: list[tuple[str, str]] = [
     ("JAECOO", "CHERY"),
 ]
 
-# A lista canonica tem 16 marcas — a tabela acima so lista 15 entradas unicas
-# porque a decima sexta e SAIC, que nao aparece como marca propria no registro
-# DENATRAN mas aparece como grupo controlador de MAXUS e MG.
-# Verificar contagem via invariante de modulo.
+# A lista canonica tem 15 marcas — todas com presenca comercial efetiva no
+# Brasil. SAIC e Geely (grupos controladores) figuram em GRUPOS_CHINESES como
+# valores, nao como chaves: nao sao vendidas sob esse nome.
 
 MARCAS_NAO_CHINESAS = ["FIAT", "VOLKSWAGEN", "TOYOTA", "VOLVO", "POLESTAR", "FORD"]
 
@@ -57,7 +56,7 @@ ALIASES_ESPERADOS: list[tuple[str, str]] = [
 
 
 # ---------------------------------------------------------------------------
-# 1. Cobertura completa das 16 marcas canonicas
+# 1. Cobertura completa das 15 marcas canonicas
 # ---------------------------------------------------------------------------
 
 
@@ -66,7 +65,7 @@ ALIASES_ESPERADOS: list[tuple[str, str]] = [
     [marca for marca, _ in MARCAS_CANONICAS_CHINESAS],
 )
 def test_e_marca_chinesa_cobertura_completa(marca: str):
-    """Cada uma das 16 marcas canonicas deve retornar True em e_marca_chinesa."""
+    """Cada uma das 15 marcas canonicas deve retornar True em e_marca_chinesa."""
     assert marcas.e_marca_chinesa(marca) is True
 
 
@@ -303,10 +302,10 @@ def test_adicionar_chinesa_dataframe_vazio():
 # ---------------------------------------------------------------------------
 
 
-def test_marcas_chinesas_tem_16_entradas():
-    """MARCAS_CHINESAS deve ter exatamente 16 marcas canonicas."""
-    assert len(marcas.MARCAS_CHINESAS) == 16, (
-        f"Esperadas 16 marcas, encontradas {len(marcas.MARCAS_CHINESAS)}: "
+def test_marcas_chinesas_tem_15_entradas():
+    """MARCAS_CHINESAS deve ter exatamente 15 marcas canonicas."""
+    assert len(marcas.MARCAS_CHINESAS) == 15, (
+        f"Esperadas 15 marcas, encontradas {len(marcas.MARCAS_CHINESAS)}: "
         f"{sorted(marcas.MARCAS_CHINESAS)}"
     )
 
