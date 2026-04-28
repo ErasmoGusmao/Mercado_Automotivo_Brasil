@@ -69,9 +69,9 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Estado atual
 
-- **Último PR mergeado:** #4 (`feat/marcas-chinesas`).
-- **PR em andamento:** este (`docs/reescopa-mvp-anfavea-primeiro`) — reescopo do MVP após resolução da Q-A em 2026-04-27.
-- **Próxima ação:** após mergear este reescopo, abrir o PR #11 (`feat/anfavea-redescoberta`), agora antecipado para o Dia 2 como pré-requisito do PR #5.
+- **Últimos PRs mergeados (em ordem):** #6 reescopa MVP (Plano C), #7 skill `/retomar-sessao`, #8 fix do hook `bloqueia_edicao_main` em worktrees.
+- **PR em andamento:** **PR #11 — `feat/anfavea-redescoberta`** (este). Adiciona `src/anfavea.py` (fetcher dos XLSX da ANFAVEA com snapshots datados, dataclass `Resultado`, cache load-uma-vez) + 21 testes pytest verdes via mocks.
+- **Próxima ação:** após mergear PR #11, abrir PR #5 (`feat/ingestao-anfavea`) — parser das abas III (combustível) e IV (marca/empresa) + mapa empresa→marca + schema pandera.
 
 ## Open questions ativas
 
