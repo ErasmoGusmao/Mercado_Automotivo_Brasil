@@ -9,8 +9,9 @@ de comparação chinesas vs. demais no DataFrame de emplacamentos do MVP.
 Nota de escopo: Volvo e Polestar são classificadas como não-chinesas, pois o
 classificador reflete a marca comercial registrada no DENATRAN/SENATRAN, não
 a cadeia de controle societário. Rever se a base passar a registrá-las como
-subsidiárias Geely. Os grupos controladores SAIC e Geely figuram apenas como
-valores em `GRUPOS_CHINESES` — não vendem sob esse nome no Brasil.
+subsidiárias Geely. SAIC figura apenas como valor controlador em
+`GRUPOS_CHINESES` (não vende sob esse nome no Brasil); Geely é marca
+canônica porque comercializa produtos próprios no Brasil desde 2024.
 """
 
 from __future__ import annotations

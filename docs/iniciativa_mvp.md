@@ -69,7 +69,7 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 ## Open questions ativas
 
 - **Q-A:** Qual fonte aberta cobre emplacamento por marca × modelo × UF × combustível? Investigar Base dos Dados (`br_senatran_*` ou similar) antes de cair em scraping do portal SENATRAN. Decidir no PR #5.
-- **Q-B:** Resolvida no PR #4 — 15 marcas canônicas aprovadas no review; Volvo/Polestar fora (marca comercial registrada, não controle societário); SAIC/Geely apenas como valores em `GRUPOS_CHINESES`.
+- **Q-B:** Resolvida no PR #4 — 15 marcas canônicas aprovadas no review; Volvo/Polestar fora (marca comercial registrada, não controle societário); SAIC apenas como valor controlador em `GRUPOS_CHINESES` (Geely é marca canônica desde 2024 no Brasil).
 
 ## Bloqueios conhecidos
 
