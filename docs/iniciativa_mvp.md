@@ -37,8 +37,8 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 ### Dia 1 — Fundação técnica
 - [x] PR #1 — `chore/instala-protocolo-orquestracao` — protocolo + agentes + hooks
 - [x] PR #2 — `chore/setup-projeto-python` — `src/`, `tests/`, `pyproject.toml`, `requirements.txt`, smoke test, este quadro
-- [ ] PR #3 — `feat/lookup-uf-regiao` — tabela IBGE UF→Região + função em `src/geo.py` + pytest
-- [ ] PR #4 — `feat/marcas-chinesas` — lista canônica + classificador + pytest
+- [x] PR #3 — `feat/lookup-uf-regiao` — tabela IBGE UF→Região + função em `src/geo.py` + pytest
+- [x] PR #4 — `feat/marcas-chinesas` — lista canônica + classificador + pytest
 
 ### Dia 2 — Ingestão de emplacamentos
 - [ ] PR #5 — `feat/ingestao-emplacamentos` — fonte aberta, fetcher com snapshots datados, schema pandera
@@ -62,14 +62,14 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Estado atual
 
-- **Último PR mergeado:** #2 (`chore/setup-projeto-python`).
-- **PR em andamento:** #3 (`feat/lookup-uf-regiao`) — lookup IBGE UF→Região + `src/geo.py` + 47 testes.
-- **Próxima ação:** revisar e mergear PR #3; em seguida abrir PR #4 (`feat/marcas-chinesas`).
+- **Último PR mergeado:** #3 (`feat/lookup-uf-regiao`).
+- **PR em andamento:** #4 (`feat/marcas-chinesas`) — classificador de marcas chinesas + `src/marcas.py` + 72 testes + invariantes de cardinalidade/grupos.
+- **Próxima ação:** revisar e mergear PR #4; em seguida abrir PR #5 (`feat/ingestao-emplacamentos`).
 
 ## Open questions ativas
 
 - **Q-A:** Qual fonte aberta cobre emplacamento por marca × modelo × UF × combustível? Investigar Base dos Dados (`br_senatran_*` ou similar) antes de cair em scraping do portal SENATRAN. Decidir no PR #5.
-- **Q-B:** Lista exata de marcas chinesas — eu proponho no PR #4, você revisa no review do PR.
+- **Q-B:** Resolvida no PR #4 — 15 marcas canônicas aprovadas no review; Volvo/Polestar fora (marca comercial registrada, não controle societário); SAIC apenas como valor controlador em `GRUPOS_CHINESES` (Geely é marca canônica desde 2024 no Brasil).
 
 ## Bloqueios conhecidos
 

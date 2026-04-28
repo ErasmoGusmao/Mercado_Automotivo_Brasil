@@ -25,6 +25,7 @@ MVP em andamento — quadro de progresso em [`docs/iniciativa_mvp.md`](docs/inic
 Projeto de análise do mercado automotivo brasileiro. Pipeline local de coleta e consolidação de dados públicos, entregue como Jupyter notebook + módulo Python (`src/`).
 
 - `src/geo.py` — lookup canônico UF → Grande Região IBGE (dicionário `UF_PARA_REGIAO` + funções `uf_to_regiao` e `adicionar_regiao`). É a única fonte de verdade para agregações geográficas; não replicar a tabela em outro lugar.
+- `src/marcas.py` — classificador de marcas chinesas (`MARCAS_CHINESAS`, `e_marca_chinesa`, `adicionar_chinesa`, `grupo_chines`); 15 marcas canônicas + 4 aliases; Volvo/Polestar excluídas por decisão de produto (marca comercial registrada, não controle societário); SAIC figura apenas como valor controlador em `GRUPOS_CHINESES`.
 
 ## Ambiente
 
