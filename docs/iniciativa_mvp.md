@@ -69,18 +69,26 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Estado atual
 
-- **Últimos PRs mergeados (em ordem):** #6 reescopa MVP (Plano C), #7 skill `/retomar-sessao`, #8 fix do hook `bloqueia_edicao_main` em worktrees.
-- **PR em andamento:** **PR #11 — `feat/anfavea-redescoberta`** (este). Adiciona `src/anfavea.py` (fetcher dos XLSX da ANFAVEA com snapshots datados, dataclass `Resultado`, cache load-uma-vez) + 21 testes pytest verdes via mocks.
-- **Próxima ação:** após mergear PR #11, abrir PR #5 (`feat/ingestao-anfavea`) — parser das abas III (combustível) e IV (marca/empresa) + mapa empresa→marca + schema pandera.
+- **Últimos PRs mergeados (em ordem):** #6 reescopa MVP (Plano C), #7 skill `/retomar-sessao`, #8 fix do hook `bloqueia_edicao_main` em worktrees, **#9 fetcher ANFAVEA** (`src/anfavea.py`, 27 testes verdes).
+- **PR em andamento:** nenhum (sessão pausada em 2026-04-28 após merge do PR #9).
+- **Próxima ação:** **checkpoint humano da Fase 1 do PR #5** (`feat/ingestao-anfavea`) — 6 decisões abertas listadas em "Open questions ativas / Q-C" abaixo. Sem essas respostas, não avançar para a Fase 2.
 
 ## Open questions ativas
 
-- **Q-A:** **Decisão tomada em 2026-04-27 (implementação pendente no PR #11/PR #5).** Fonte primária escolhida = ANFAVEA `siteautoveiculos{ANO}.xlsx` (granularidade marca × combustível × mês × Brasil). Marca+UF não estão disponíveis em fonte aberta confirmada — FENABRAVE só publica em PDF/flipbook; RENAVAM-diff foi avaliado e descartado por risco metodológico (sucateamento e transferências inter-UF inflam o delta). Plano C: corte por UF/região só como nice-to-have via frota DENATRAN (estoque), explicitamente declarado como proxy.
+- **Q-A:** **Resolvida em 2026-04-27 e implementada no PR #9.** Fonte primária = ANFAVEA `siteautoveiculos{ANO}.xlsx`. Marca+UF não disponíveis em fonte aberta confirmada (FENABRAVE só PDF; RENAVAM-diff descartado). Plano C: corte por UF/região só como nice-to-have via frota DENATRAN (proxy declarado).
 - **Q-B:** Resolvida no PR #4 — 15 marcas canônicas aprovadas no review; Volvo/Polestar fora (marca comercial registrada, não controle societário); SAIC apenas como valor controlador em `GRUPOS_CHINESES` (Geely é marca canônica desde 2024 no Brasil).
+- **Q-C (PR #5 — checkpoint Fase 1, aberta em 2026-04-28):** 6 decisões aguardando resposta humana antes de codar o parser ANFAVEA. Recomendação minha em **negrito**.
+  - **A) Granularidade do "Top 10".** ANFAVEA reporta por **empresa** (Stellantis, GM, VW…). Sem mapa empresa→marca, "top 10 marcas" vira "top 10 empresas". **Recomendo: ficar em empresa no PR #5; mapa empresa→marca como nice-to-have ou PR #5b.**
+  - **B) Estrutura do parser.** `parse_emplacamento_empresa(caminho_xlsx) -> df[mes, empresa, qtd]` (aba IV) + `parse_emplacamento_combustivel(caminho_xlsx) -> df[mes, combustivel, qtd]` (aba III) + `consolidar_anfavea(destino_base, mes_coleta) -> df` (orquestrador `baixar_todos` + parser por ano + concat).
+  - **C) Schema pandera "open" para empresa, "closed" para combustível.** Validar tipo, NotNull, cardinalidade. Combustível em set fechado (gasolina, etanol, flex, diesel, elétrico, híbrido).
+  - **D) Saída secundária em `processed/`.** Função retorna DataFrame **e** salva CSV em `FONTE/ANFAVEA/processed/anfavea_emplacamento_mensal.csv` (cache de output, descartável conforme convenção).
+  - **E) Notebook.** Célula nova após download chama `consolidar_anfavea`, exibe `df.head()` + `df.groupby('mes')['qtd'].sum().tail()` para sanity check. Pandera roda só em pytest, não no notebook.
+  - **F) Inspeção do XLSX antes de codar (pré-requisito).** Rodar `baixar_anfavea(2024, ...)` e abrir o arquivo com `openpyxl` para mapear o layout real das abas III e IV (nomes, posições de cabeçalhos, formato das datas). **Sem isso, qualquer parser é palpite.** Trabalho exploratório fora de PR; resultados servem de base para o teste-red da Fase 3.
 
 ## Bloqueios conhecidos
 
-- ANFAVEA: URLs `https://anfavea.com.br/docs/{emplacamentos_nacionais,emplacamentos_importados}_{ANO}.xlsx` retornam 404. **URL correta descoberta em 2026-04-27** (`https://anfavea.com.br/docs/siteautoveiculos{ANO}.xlsx`), porém **o fetcher do notebook continua quebrado** até que o PR #11 (antecipado para o Dia 2) substitua o padrão antigo. Bloqueio só é fechado no merge do PR #11.
+- **Notebook ANFAVEA não atualizado.** O fetcher Python (`src/anfavea.py`) está pronto no PR #9, mas a célula da ANFAVEA em `coleta_dados_automotivos.ipynb` continua usando o padrão antigo de URL (`emplacamentos_nacionais_*.xlsx`, 404). Endereçado pela decisão E do PR #5 (Q-C/E acima). Bloqueio só é fechado no merge do PR #5.
+- **Worktree órfã:** `.claude/worktrees/feat+anfavea-redescoberta` (do PR #9, já mergeado) não pôde ser removida via `git worktree remove` (`Permission denied` — arquivo em uso pelo OS). Tentar remoção manual ou `git worktree remove --force` numa próxima sessão. Não bloqueia o PR #5.
 
 ## Como retomar trabalho em nova sessão (Claude)
 
