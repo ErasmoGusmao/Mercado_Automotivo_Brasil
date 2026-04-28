@@ -20,6 +20,8 @@ Subagentes ativos: `backend-dev`, `code-reviewer`, `doc-writer`, `test-writer`, 
 
 MVP em andamento — quadro de progresso em [`docs/iniciativa_mvp.md`](docs/iniciativa_mvp.md). Sempre consulte este arquivo ao retomar sessão para saber em que PR estamos e qual é a próxima ação.
 
+Para retomar trabalho ao iniciar uma nova sessão (ou quando o usuário disser "continuar", "próximo PR", etc.), use o slash command `/retomar-sessao` (em [`.claude/commands/retomar-sessao.md`](.claude/commands/retomar-sessao.md)). Ele lê o quadro, valida contra `gh pr list` + `git log`, detecta drift e devolve a próxima ação numa frase para confirmação humana.
+
 ## Visão geral
 
 Projeto de análise do mercado automotivo brasileiro. Pipeline local de coleta e consolidação de dados públicos, entregue como Jupyter notebook + módulo Python (`src/`).
