@@ -38,6 +38,8 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Plano dos 5 dias (PR a PR)
 
+> **Nota sobre numeração:** `PR #N` aqui é a numeração **lógica** do MVP (atribuída quando o quadro foi escrito) e **não corresponde** ao número sequencial do PR no GitHub. Por exemplo, este reescopo é o sexto PR do GitHub mas se refere ao "PR #5" do quadro — que foi reordenado e renomeado abaixo. Para localizar um PR no GitHub, use o nome da branch (`feat/...`, `docs/...`), não o número.
+
 ### Dia 1 — Fundação técnica
 - [x] PR #1 — `chore/instala-protocolo-orquestracao` — protocolo + agentes + hooks
 - [x] PR #2 — `chore/setup-projeto-python` — `src/`, `tests/`, `pyproject.toml`, `requirements.txt`, smoke test, este quadro
@@ -73,12 +75,12 @@ Este arquivo é o **quadro de andamento** da iniciativa. Cada PR atualiza a tabe
 
 ## Open questions ativas
 
-- **Q-A:** **Resolvida em 2026-04-27.** Fonte primária = ANFAVEA `siteautoveiculos{ANO}.xlsx` (granularidade marca × combustível × mês × Brasil). Marca+UF não estão disponíveis em fonte aberta confirmada — FENABRAVE só publica em PDF/flipbook; RENAVAM-diff foi avaliado e descartado por risco metodológico (sucateamento e transferências inter-UF inflam o delta). Plano C: corte por UF/região só como nice-to-have via frota DENATRAN (estoque), explicitamente declarado como proxy.
+- **Q-A:** **Decisão tomada em 2026-04-27 (implementação pendente no PR #11/PR #5).** Fonte primária escolhida = ANFAVEA `siteautoveiculos{ANO}.xlsx` (granularidade marca × combustível × mês × Brasil). Marca+UF não estão disponíveis em fonte aberta confirmada — FENABRAVE só publica em PDF/flipbook; RENAVAM-diff foi avaliado e descartado por risco metodológico (sucateamento e transferências inter-UF inflam o delta). Plano C: corte por UF/região só como nice-to-have via frota DENATRAN (estoque), explicitamente declarado como proxy.
 - **Q-B:** Resolvida no PR #4 — 15 marcas canônicas aprovadas no review; Volvo/Polestar fora (marca comercial registrada, não controle societário); SAIC apenas como valor controlador em `GRUPOS_CHINESES` (Geely é marca canônica desde 2024 no Brasil).
 
 ## Bloqueios conhecidos
 
-- ~~ANFAVEA: URLs `https://anfavea.com.br/docs/...` retornam 404.~~ **Resolvido em 2026-04-27 pela investigação da Q-A.** Padrão de URL correto confirmado: `https://anfavea.com.br/docs/siteautoveiculos{ANO}.xlsx` (sem prefixo `emplacamentos_nacionais_`). Implementação no PR #11, agora antecipado para o Dia 2.
+- ANFAVEA: URLs `https://anfavea.com.br/docs/{emplacamentos_nacionais,emplacamentos_importados}_{ANO}.xlsx` retornam 404. **URL correta descoberta em 2026-04-27** (`https://anfavea.com.br/docs/siteautoveiculos{ANO}.xlsx`), porém **o fetcher do notebook continua quebrado** até que o PR #11 (antecipado para o Dia 2) substitua o padrão antigo. Bloqueio só é fechado no merge do PR #11.
 
 ## Como retomar trabalho em nova sessão (Claude)
 
