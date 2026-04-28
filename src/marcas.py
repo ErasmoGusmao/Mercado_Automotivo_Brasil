@@ -70,6 +70,7 @@ def e_marca_chinesa(marca: str) -> bool:
     """Retorna True se a marca (normalizada) pertence ao conjunto canônico chinês.
 
     Levanta TypeError se o argumento não for string.
+    Volvo e Polestar retornam False — decisão de produto; veja nota de escopo no topo do módulo.
     """
     return normalizar_marca(marca) in MARCAS_CHINESAS
 
