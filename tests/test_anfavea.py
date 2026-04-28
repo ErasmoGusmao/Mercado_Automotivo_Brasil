@@ -239,6 +239,25 @@ def test_baixar_anfavea_excecao_de_rede_retorna_ok_false(
     assert "dns down" in (resultado.erro or "")
 
 
+@pytest.mark.parametrize(
+    "mes_coleta_invalido",
+    # Casos que falham regex de formato AAAA-MM. Nao validamos semantica de
+    # calendario (ex: "2026-13" passa pelo regex e e aceito como nome de
+    # diretorio); o objetivo e evitar paths quebrados como "abril/2026".
+    ["abril/2026", "2026-4", "2026-04-15", "2026/04", "", "abril"],
+)
+def test_baixar_anfavea_mes_coleta_invalido_levanta_value_error(
+    mes_coleta_invalido: str, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """mes_coleta fora do formato 'AAAA-MM' deve levantar ValueError (input do operador, nao falha de fonte)."""
+    monkeypatch.setattr(anfavea.requests, "get", _fake_get_factory())
+
+    with pytest.raises(ValueError, match="mes_coleta"):
+        anfavea.baixar_anfavea(
+            ano=2024, destino_base=tmp_path, mes_coleta=mes_coleta_invalido
+        )
+
+
 def test_baixar_anfavea_cache_load_uma_vez_pula_download(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ):

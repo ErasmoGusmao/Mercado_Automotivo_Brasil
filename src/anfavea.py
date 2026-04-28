@@ -18,6 +18,7 @@ Decisões consolidadas (ver `docs/iniciativa_mvp.md`, PR #11):
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -32,6 +33,7 @@ _USER_AGENT = (
     "(+https://github.com/ErasmoGusmao/Mercado_Automotivo_Brasil)"
 )
 _TIMEOUT_SEGUNDOS = 30
+_MES_COLETA_RE = re.compile(r"^\d{4}-\d{2}$")
 
 
 @dataclass
@@ -82,10 +84,18 @@ def baixar_anfavea(
     Idempotente: se o arquivo já existe no caminho de destino, retorna
     `Resultado(ok=True)` sem refazer o download (cache load-uma-vez).
 
-    Nunca levanta exceção — qualquer erro de rede ou HTTP é convertido em
-    `Resultado(ok=False)` com a mensagem original em `erro`. Em falha, nenhum
-    arquivo é gravado no destino.
+    Nunca levanta para erros operacionais — qualquer erro de rede, HTTP, ou
+    de gravação no destino vira `Resultado(ok=False)` com a mensagem original
+    em `erro`. Em falha, nenhum arquivo é gravado no destino.
+
+    Levanta `ValueError` apenas se `mes_coleta` não estiver no formato
+    `AAAA-MM` (validação de input do operador, não falha de fonte).
     """
+    if not _MES_COLETA_RE.match(mes_coleta):
+        raise ValueError(
+            f"mes_coleta deve estar no formato 'AAAA-MM', recebido: {mes_coleta!r}"
+        )
+
     destino = _caminho_destino(destino_base, mes_coleta, ano)
 
     if destino.exists():
@@ -97,11 +107,10 @@ def baixar_anfavea(
     try:
         response = requests.get(url, headers=headers, timeout=_TIMEOUT_SEGUNDOS)
         response.raise_for_status()
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_bytes(response.content)
     except Exception as exc:  # noqa: BLE001 - intencional: qualquer erro vira ok=False
         return Resultado(ano=ano, ok=False, caminho=None, erro=str(exc))
-
-    destino.parent.mkdir(parents=True, exist_ok=True)
-    destino.write_bytes(response.content)
 
     return Resultado(ano=ano, ok=True, caminho=destino, erro=None)
 
