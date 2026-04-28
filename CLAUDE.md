@@ -53,7 +53,9 @@ Convenção load-uma-vez: `raw/` é o cache imutável da fonte (parquet do BigQu
 
 ## Coleta ANFAVEA (estado conhecido)
 
-Os URLs `https://anfavea.com.br/docs/{siteautoveiculos,emplacamentos_nacionais,emplacamentos_importados}_{ANO}.xlsx` retornam 404 para todos os anos 2012–2026 quando testados (vide log no notebook). O padrão de URL precisa ser redescoberto inspecionando https://anfavea.com.br/site/edicoes-em-excel/. Ao mexer nessa célula, **não silenciar a falha** — o notebook explicitamente marca `ok=False` para que o usuário veja o que faltou.
+Padrão de URL correto (descoberto em 2026-04-27, **implementação pendente** no PR #11): `https://anfavea.com.br/docs/siteautoveiculos{ANO}.xlsx`. É um arquivo único anual com ~8 abas, incluindo a aba IV ("Emplacamento Empresa", mensal por marca/empresa) e a aba III (mensal por combustível). O padrão antigo do notebook (`emplacamentos_nacionais_{ANO}.xlsx`, `emplacamentos_importados_{ANO}.xlsx`) está obsoleto e retorna 404 — não regredir para ele. Até o PR #11 entrar, o fetcher do notebook continua quebrado; o que mudou foi apenas que a URL nova já está confirmada. Ao mexer nessa célula, **não silenciar a falha** — o notebook deve marcar `ok=False` se a URL nova também falhar, para que o usuário veja o que faltou.
+
+A ANFAVEA agrega por **empresa**, não por marca individual (ex.: Stellantis = Fiat + Jeep + Citroën; GM cobre Chevrolet). Hoje `src/marcas.py` cobre apenas o recorte de marcas chinesas — não existe ainda mapa empresa→marca. Esse mapa será construído num módulo a definir quando o PR #5 (`feat/ingestao-anfavea`) for aberto, e é pré-requisito para responder Q2/Q3 do MVP em nível de marca individual.
 
 ## Convenções de código
 
