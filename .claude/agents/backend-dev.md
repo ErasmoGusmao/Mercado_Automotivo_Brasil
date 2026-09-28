@@ -1,7 +1,8 @@
 ---
 name: backend-dev
 description: Use para implementar código Python do projeto — funções de ingestão, transformação com pandas, módulos em src/, células de notebook que executam ETL. Acionar quando a tarefa envolver "escreva", "implemente", "ajuste a função", "carregue os dados", "crie o pipeline".
-model: sonnet
+model: claude-opus-5-5
+effort: high
 color: yellow
 ---
 
