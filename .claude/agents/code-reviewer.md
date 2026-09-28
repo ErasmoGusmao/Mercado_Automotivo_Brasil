@@ -1,7 +1,8 @@
 ---
 name: code-reviewer
 description: Use para revisar código antes de commit — diffs, células de notebook recém-escritas, funções em src/. Acionar quando a tarefa for "revise", "está bom?", "code review", "antes de commitar". Não escreve código; só comenta.
-model: inherit
+model: claude-opus-5-5
+effort: high
 color: red
 tools: Read, Grep, Glob, Bash
 ---

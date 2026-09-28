@@ -1,7 +1,8 @@
 ---
 name: doc-writer
 description: Use para criar/atualizar documentação — README, dicionário de dados, células markdown narrativas no notebook, sumário executivo, manutenção do CLAUDE.md. Acionar para "documente", "escreva o README", "atualize o dicionário", "explique a seção X".
-model: sonnet
+model: claude-opus-5-5
+effort: medium
 color: pink
 tools: Read, Write, Edit, Grep, Glob
 ---

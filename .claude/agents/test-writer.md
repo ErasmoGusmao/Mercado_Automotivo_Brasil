@@ -1,7 +1,8 @@
 ---
 name: test-writer
 description: Use para escrever testes — pytest para funções em src/, schemas pandera para validação de dados, asserções de invariantes (totais, nulos, cardinalidade). Acionar para "escreva o teste", "valide o schema", "garanta que X bate com Y".
-model: sonnet
+model: claude-opus-5-5
+effort: high
 color: purple
 ---
 

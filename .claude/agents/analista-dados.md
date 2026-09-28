@@ -1,7 +1,8 @@
 ---
 name: analista-dados
 description: Use para análise exploratória, formulação de hipóteses, escolha de cortes e visualizações, interpretação de resultados, narrativa do notebook. Acionar para "analise", "que corte faz mais sentido", "interprete esse gráfico", "qual visualização", "qual insight".
-model: sonnet
+model: claude-opus-5-5
+effort: high
 color: green
 ---
 
