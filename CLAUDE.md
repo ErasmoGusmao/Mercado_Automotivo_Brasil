@@ -64,3 +64,7 @@ A ANFAVEA agrega por **empresa**, não por marca individual (ex.: Stellantis = F
 
 - Mensagens de output e comentários em português, frequentemente com emojis (`✅`, `⬇️`, `⚠️`). Mantenha esse estilo ao editar células — não troque para inglês nem remova emojis existentes.
 - Caminhos via `pathlib.Path` relativos a `BASE_DIR = Path("FONTE")`. CSVs salvos com `encoding="utf-8-sig"` (compatibilidade Excel/BR).
+
+## Migração futura para `uv` (registrada em 05/11/2026, não feita)
+
+`pyproject.toml` + `uv.lock` + `.python-version` no lugar de `requirements.txt` com faixas e `.venv_AUTOMOVEL_BR` — motivo, comandos e ressalvas no `README.md` ("🔜 Migração futura"). Só migrar quando o usuário pedir.
